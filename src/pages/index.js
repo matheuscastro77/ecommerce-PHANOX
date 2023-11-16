@@ -1,8 +1,6 @@
 import React from 'react'
 import { FooterBanner, HeroBanner, Product } from '../../components'
-// import client from '../../sanity/lib/client'
 import { createClient } from 'next-sanity';
-
 import { apiVersion, dataset, projectId, useCdn } from '../../sanity/env'
 
 const client = createClient({

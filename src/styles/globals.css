@@ -313,9 +313,7 @@ span.text-red {
   right: 0;
   top: 0;
   z-index: 100;
-  /* will-change: transform; */
   transition: all 1s ease-in-out;
-
 }
 
 .cart-container {
@@ -325,7 +323,11 @@ span.text-red {
   float: right;
   padding: 40px 10px;
   position: relative;
+  left: 15px;
+}
 
+.container-main {
+  overflow: hidden;
 }
 
 .footer-container {

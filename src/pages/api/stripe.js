@@ -57,9 +57,6 @@ export default async function handler(req, res) {
               }
             }
           }
-          // {
-          //   shipping_rate: 'shr_1OCmwLK4Bk2cHq6MBfkrWnx8'
-          // },
         ],
         line_items: req.body.map((item) => {
           const img = item.image[0].asset._ref;

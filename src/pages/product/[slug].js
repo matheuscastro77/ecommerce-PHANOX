@@ -11,7 +11,7 @@ import { useStateContext } from '../../../context/StateContext';
 const ProductDetails = ({ product, products }) => {
     const { image, name, details, price } = product;
     const [index, setIndex] = useState(0);
-    const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
+    const { decQty, incQty, qty, onAdd, setShowCart, showCart } = useStateContext();
 
     const handleBuyNow = () => {
         onAdd(product, qty);
@@ -19,8 +19,15 @@ const ProductDetails = ({ product, products }) => {
         setShowCart(true);
     }
 
+    const height = {
+        height: '75vh'
+    }
+
+    const heigth100 = {
+        height: '100%'
+    }
     return (
-        <div>
+        <div className="container-main" style={showCart ? height : heigth100}>
             <div className="product-detail-container">
                 <div>
                     <div className="image-container">
