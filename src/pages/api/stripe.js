@@ -9,10 +9,57 @@ export default async function handler(req, res) {
         submit_type: 'pay',
         mode: 'payment',
         payment_method_types: ['card', 'boleto'],
+        billing_address_collection: 'required',
+        shipping_address_collection: {
+          allowed_countries: ['BR']
+        },
+        phone_number_collection: {
+          "enabled": true
+        },
         shipping_options: [
           {
-            shipping_rate: 'shr_1OCmwLK4Bk2cHq6MBfkrWnx8'
+            shipping_rate_data: {
+              type: 'fixed_amount',
+              fixed_amount: {
+                amount: 0,
+                currency: 'brl'
+              },
+              display_name: 'Entrega grátis',
+              delivery_estimate: {
+                minimum: {
+                  unit: 'business_day',
+                  value: 9
+                },
+                maximum: {
+                  unit: 'business_day',
+                  value: 11
+                }
+              }
+            }
           },
+          {
+            shipping_rate_data: {
+              type: 'fixed_amount',
+              fixed_amount: {
+                amount: 3000,
+                currency: 'brl'
+              },
+              display_name: 'Entrega rápida',
+              delivery_estimate: {
+                minimum: {
+                  unit: 'business_day',
+                  value: 3
+                },
+                maximum: {
+                  unit: 'business_day',
+                  value: 5
+                }
+              }
+            }
+          }
+          // {
+          //   shipping_rate: 'shr_1OCmwLK4Bk2cHq6MBfkrWnx8'
+          // },
         ],
         line_items: req.body.map((item) => {
           const img = item.image[0].asset._ref;
