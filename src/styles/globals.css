@@ -306,10 +306,16 @@ span.text-red {
   font-weight: 300;
 }
 
-.cart-wrapper {
-  width: 100vw;
-  background: rgba(0, 0, 0, 0.5);
+.cart-container-main {
+  z-index: 10;
   position: fixed;
+}
+
+.cart-wrapper {
+  background: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  position: fixed;
+  overflow: hidden;
   right: 0;
   top: 0;
   z-index: 100;
@@ -327,7 +333,7 @@ span.text-red {
 }
 
 .container-main {
-  overflow: hidden;
+  overflow-block: hidden;
 }
 
 .footer-container {

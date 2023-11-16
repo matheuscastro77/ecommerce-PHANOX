@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 
@@ -17,17 +17,15 @@ const ProductDetails = ({ product, products }) => {
         onAdd(product, qty);
 
         setShowCart(true);
+
+        var node = document.createElement("style");
+        node.setAttribute("type", "text/css");
+        node.textContent = "html, body { height: auto ! important ; overflow: hidden ! important ; }";
+        document.head.prepend(node);
     }
 
-    const height = {
-        height: '75vh'
-    }
-
-    const heigth100 = {
-        height: '100%'
-    }
     return (
-        <div className="container-main" style={showCart ? height : heigth100}>
+        <div className="container-main">
             <div className="product-detail-container">
                 <div>
                     <div className="image-container">
