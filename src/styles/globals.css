@@ -461,6 +461,7 @@ span.text-red {
 .btn-container {
   width: 400px;
   margin: auto;
+  padding-bottom: 40px;
 }
 
 .btn {
