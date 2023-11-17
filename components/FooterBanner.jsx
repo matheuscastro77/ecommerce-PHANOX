@@ -3,40 +3,27 @@ import Link from "next/link";
 import React from "react";
 import { urlForImage } from "../sanity/lib/image";
 
-const FooterBanner = ({
-  footerBanner: {
-    discount,
-    largeText1,
-    largeText2,
-    saleTime,
-    smallText,
-    midText,
-    desc,
-    product,
-    buttonText,
-    image,
-  },
-}) => {
+const FooterBanner = ({ footerBanner }) => {
   return (
     <div className="footer-banner-container">
       <div className="banner-desc">
         <div className="left">
-          <p>{discount}</p>
-          <h3>{largeText1}</h3>
-          <h3>{largeText2}</h3>
-          <p>{saleTime}</p>
+          <p>{footerBanner.discount}</p>
+          <h3>{footerBanner.largeText1}</h3>
+          <h3>{footerBanner.largeText2}</h3>
+          {/* <p>{footerBanner.saleTime}</p> */}
         </div>
         <div className="right">
-          <p>{smallText}</p>
-          <h3>{midText}</h3>
-          <p>{desc}</p>
-          <Link href={`/product/${product}`}>
-            <button type="button">{buttonText}</button>
+          <p>{footerBanner.smallText}</p>
+          <h3>{footerBanner.midText}</h3>
+          <p>{footerBanner.desc}</p>
+          <Link href={`/product/${footerBanner.product}`}>
+            <button type="button">{footerBanner.buttonText}</button>
           </Link>
         </div>
 
         <img
-          src={urlForImage(image)}
+          src={urlForImage(footerBanner.image)}
           className="footer-banner-image"
           alt="product"
         />

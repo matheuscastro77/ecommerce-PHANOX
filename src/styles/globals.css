@@ -278,6 +278,7 @@ span.text-red {
 
 .banner-desc .left p {
   margin: 18px;
+  margin-left: 25px;
 }
 
 .footer-banner-image {
@@ -285,7 +286,8 @@ span.text-red {
   /* top: -35%;
   left: 8%; */
   top: -25%;
-  left: 25%;
+  left: 38%;
+  width: 37%;
 }
 
 .banner-desc .right {

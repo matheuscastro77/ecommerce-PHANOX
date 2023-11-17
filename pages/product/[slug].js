@@ -58,11 +58,11 @@ const ProductDetails = ({ product, products }) => {
                             (20)
                         </p>
                     </div>
-                    <h4>Details: </h4>
+                    <h4>Detalhes: </h4>
                     <p>{details}</p>
-                    <p className="price">${price}</p>
+                    <p className="price">R$ {price}</p>
                     <div className="quantity">
-                        <h3>Quantity:</h3>
+                        <h3>Quantidade:</h3>
                         <p className="quantity-desc">
                             <span className="minus" onClick={decQty}><AiOutlineMinus /></span>
                             <span className="num">{qty}</span>
@@ -70,8 +70,8 @@ const ProductDetails = ({ product, products }) => {
                         </p>
                     </div>
                     <div className="buttons">
-                        <button type="button" className="add-to-cart" onClick={() => onAdd(product, qty)}>Add to Cart</button>
-                        <button type="button" className="buy-now" onClick={handleBuyNow}>Buy Now</button>
+                        <button type="button" className="add-to-cart" onClick={() => onAdd(product, qty)}>Adicionar ao Carrinho</button>
+                        <button type="button" className="buy-now" onClick={handleBuyNow}>Comprar</button>
                     </div>
                 </div>
             </div>

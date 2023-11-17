@@ -19,7 +19,9 @@ const Navbar = () => {
   return (
     <div className="navbar-container">
       <p className="logo">
-        <Link href={"/"}>JSM Headphones</Link>
+        <Link href={"/"} style={{ fontWeight: 700 }}>
+          Melody Clocks
+        </Link>
       </p>
 
       <button className="cart-icon" type="button" onClick={() => openModal()}>
