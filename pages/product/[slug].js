@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 
-import { urlForImage } from '../../../sanity/lib/image';
-import { client } from '../../../sanity/lib/client';
-import { Product } from '../../../components';
-import { useStateContext } from '../../../context/StateContext';
+import { urlForImage } from '../../sanity/lib/image';
+import { client } from '../../sanity/lib/client';
+import { Product } from '../../components';
+import { useStateContext } from '../../context/StateContext';
 
 const ProductDetails = ({ product, products }) => {
     const { image, name, details, price } = product;
