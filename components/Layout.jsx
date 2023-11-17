@@ -7,6 +7,9 @@ import Footer from "./Footer";
 const Layout = ({ children }) => {
   return (
     <div className="layout">
+      <Head>
+        <title>Melody Clocks</title>
+      </Head>
       <header>
         <Navbar />
       </header>
