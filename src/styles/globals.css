@@ -54,12 +54,9 @@ a {
   position: absolute;
   white-space: nowrap;
   will-change: transform;
-  animation: marquee 15s linear infinite;
-  width: 180%;
-}
-
-.track:hover {
-  animation-play-state: paused;
+  width: 490%;
+  animation: marquee 25s linear forwards infinite;
+  display: flex;
 }
 
 @keyframes marquee {
@@ -68,9 +65,17 @@ a {
   }
 
   to {
-    transform: translateX(-50%);
+    transform: translateX(-80%);
   }
+
 }
+
+
+
+.track:hover {
+  animation-play-state: paused;
+}
+
 
 span.text-red {
   -webkit-text-stroke: 1px #f02d34;
@@ -285,8 +290,7 @@ span.text-red {
 
 .footer-banner-image {
   position: absolute;
-  /* top: -35%;
-  left: 8%; */
+
   top: -25%;
   left: 38%;
   width: 37%;
@@ -667,7 +671,6 @@ span.text-red {
   text-align: center;
   margin: 50px;
   color: #324d67;
-
   font-size: 28px;
 }
 
@@ -745,7 +748,23 @@ span.text-red {
   margin-top: 10px;
 }
 
-@media screen and (max-width:800px) {
+@media screen and (max-width: 1200px) {
+  .track {
+    animation: marquee 25s linear infinite;
+    width: 750%;
+  }
+
+  .buttons {
+    width: 70%;
+  }
+
+  .reviews--details {
+    width: 75%;
+  }
+}
+
+
+@media screen and (max-width: 767px) {
   .hero-banner-container {
     height: 560px;
   }
@@ -895,8 +914,8 @@ span.text-red {
   }
 
   .track {
-    animation: marquee 10s linear infinite;
-    width: 550%;
+    animation: marquee 25s linear infinite;
+    width: 1340%;
   }
 
   .success-wrapper,
@@ -931,5 +950,20 @@ span.text-red {
     padding: 20px;
     bottom: 0;
     position: fixed;
+  }
+
+  .buttons {
+    width: 100%;
+  }
+
+  .reviews--details {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 541px) {
+  .track {
+    animation: marquee 25s linear infinite;
+    width: 1200%;
   }
 }

@@ -20,7 +20,7 @@ const Navbar = () => {
     <div className="navbar-container">
       <p className="logo">
         <Link href={"/"} style={{ fontWeight: 700 }}>
-          Melody Clocks
+          Time Tunes
         </Link>
       </p>
 
