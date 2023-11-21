@@ -13,7 +13,48 @@ export const StateContext = ({ children }) => {
     let foundProduct;
     let index;
 
+    useEffect(() => {
+        const storedCartItems = localStorage.getItem('cartItems');
+        if (storedCartItems) {
+            setCartItems(JSON.parse(storedCartItems));
+        }
+
+        // const storedData = localStorage.getItem('cartItems');
+
+        // // Verifique se os dados existem e são um array
+        // if (storedData) {
+        //     try {
+        //         const parsedData = JSON.parse(storedData);
+
+        //         console.log(parsedData[0].quantity);
+
+        //         // Verifique se os dados são um array
+        //         if (Array.isArray(parsedData)) {
+        //             const numberOfItems = parsedData.length;
+        //             console.log(`Número de itens no array: ${numberOfItems}`);
+        //         } else {
+        //             console.log('Os dados armazenados não são um array.');
+        //         }
+        //     } catch (error) {
+        //         console.error('Erro ao analisar os dados do localStorage:', error);
+        //     }
+        // } else {
+        //     console.log('Não há dados armazenados para essa chave.');
+        // }
+    }, []);
+
+
+    // const updateCartItemsAndLocalStorage = (updatedCartItems) => {
+    //     setCartItems(updatedCartItems);
+    //     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+    // };
+
+
     const onAdd = (product, quantity) => {
+        if (!product || !product._id) {
+            return;
+        }
+
         const checkProductInCart = cartItems.find((item) => item._id === product._id);
 
         setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
@@ -24,26 +65,54 @@ export const StateContext = ({ children }) => {
                 if (cartProduct._id === product._id) return {
                     ...cartProduct,
                     quantity: cartProduct.quantity + quantity
-                }
-            })
+                };
+                return cartProduct; // Adicionei essa linha para retornar o produto sem modificação
+            });
 
             setCartItems(updatedCartItems);
-        } else {
-            product.quantity = quantity;
 
+            localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+        } else {
+            // product.quantity = quantity;
+            // setCartItems([...cartItems, { ...product }]);
+            // localStorage.setItem('cartItems', JSON.stringify([...cartItems, { ...product }]));
+
+            product.quantity = quantity;
             setCartItems([...cartItems, { ...product }]);
+            // updateCartItemsAndLocalStorage(cartItems);
+
+            localStorage.setItem('cartItems', JSON.stringify([...cartItems, { ...product }]));
+
         }
 
-        toast.success(`${qty} ${product.name} adicionado ao carrinho.`);
+        // updateCartItemsAndLocalStorage(cartItems);
+
+
+
+        toast.success(`${quantity} ${product.name} adicionado ao carrinho.`);
     }
 
     const onRemove = (product) => {
-        foundProduct = cartItems.find((item) => item._id === product._id);
+        if (!product || !product._id) {
+            console.error("Produto inválido ou sem ID");
+            return;
+        }
+
+        const foundProduct = cartItems.find((item) => item._id === product._id);
+        if (!foundProduct) {
+            console.error("Produto não encontrado no carrinho");
+            return;
+        }
+
         const newCartItems = cartItems.filter((item) => item._id !== product._id);
 
         setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price * foundProduct.quantity);
-        setTotalQuantities(prevTotalQuantities => prevTotalQuantities - foundProduct.quantity);
+        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - foundProduct.quantity);
         setCartItems(newCartItems);
+
+        localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+
+        toast.success(`${foundProduct.name} removido do carrinho.`);
     }
 
     const toggleCartItemQuanitity = (id, value) => {
@@ -114,3 +183,37 @@ export const StateContext = ({ children }) => {
 }
 
 export const useStateContext = () => useContext(Context);
+
+
+// const onAdd = (product, quantity) => {
+//     const checkProductInCart = cartItems.find((item) => item._id === product._id);
+
+//     setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
+//     setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
+
+//     if (checkProductInCart) {
+//         const updatedCartItems = cartItems.map((cartProduct) => {
+//             if (cartProduct._id === product._id) return {
+//                 ...cartProduct,
+//                 quantity: cartProduct.quantity + quantity
+//             }
+//         })
+
+//         setCartItems(updatedCartItems);
+//     } else {
+//         product.quantity = quantity;
+
+//         setCartItems([...cartItems, { ...product }]);
+//     }
+
+//     toast.success(`${qty} ${product.name} adicionado ao carrinho.`);
+// }
+
+// const onRemove = (product) => {
+//     foundProduct = cartItems.find((item) => item._id === product._id);
+//     const newCartItems = cartItems.filter((item) => item._id !== product._id);
+
+//     setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price * foundProduct.quantity);
+//     setTotalQuantities(prevTotalQuantities => prevTotalQuantities - foundProduct.quantity);
+//     setCartItems(newCartItems);
+// }
