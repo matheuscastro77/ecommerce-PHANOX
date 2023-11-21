@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
-
-
 import { urlForImage } from '../../sanity/lib/image';
 import { client } from '../../sanity/lib/client';
 import { Product } from '../../components';
@@ -60,7 +58,9 @@ const ProductDetails = ({ product, products }) => {
                     </div>
                     <h4>Descrição: </h4>
                     <p className='reviews--details'>{details}</p>
-                    <p className="price">R$ {price}0</p>
+                    <p className="price">R$ {price.toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                    })}</p>
                     <div className="quantity">
                         <h3>Quantidade:</h3>
                         <p className="quantity-desc">

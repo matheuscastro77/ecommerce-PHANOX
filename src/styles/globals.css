@@ -406,10 +406,6 @@ span.text-red {
   padding: 10px 10px;
 }
 
-
-
-
-
 .product {
   display: flex;
   gap: 30px;
@@ -417,7 +413,7 @@ span.text-red {
 }
 
 .product .cart-product-image {
-  width: 180px;
+  width: 150px;
   height: 150px;
   border-radius: 15px;
   background-color: #ebebeb;
@@ -428,7 +424,7 @@ span.text-red {
   justify-content: space-between;
   width: 350px;
   color: #324d67;
-
+  max-width: 100%;
 }
 
 .item-desc .bottom {
@@ -436,7 +432,7 @@ span.text-red {
 }
 
 .flex h5 {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .flex h4 {

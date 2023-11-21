@@ -6,8 +6,8 @@ const Context = createContext();
 export const StateContext = ({ children }) => {
     const [showCart, setShowCart] = useState(false);
     const [cartItems, setCartItems] = useState([]);
-    const [totalPrice, setTotalPrice] = useState(0);
     const [totalQuantities, setTotalQuantities] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
     const [qty, setQty] = useState(1);
 
     let foundProduct;
@@ -19,36 +19,16 @@ export const StateContext = ({ children }) => {
             setCartItems(JSON.parse(storedCartItems));
         }
 
-        // const storedData = localStorage.getItem('cartItems');
+        const soredTotalPrice = localStorage.getItem('totalPrice')
+        if (soredTotalPrice) {
+            setTotalPrice(JSON.parse(soredTotalPrice));
+        }
 
-        // // Verifique se os dados existem e são um array
-        // if (storedData) {
-        //     try {
-        //         const parsedData = JSON.parse(storedData);
-
-        //         console.log(parsedData[0].quantity);
-
-        //         // Verifique se os dados são um array
-        //         if (Array.isArray(parsedData)) {
-        //             const numberOfItems = parsedData.length;
-        //             console.log(`Número de itens no array: ${numberOfItems}`);
-        //         } else {
-        //             console.log('Os dados armazenados não são um array.');
-        //         }
-        //     } catch (error) {
-        //         console.error('Erro ao analisar os dados do localStorage:', error);
-        //     }
-        // } else {
-        //     console.log('Não há dados armazenados para essa chave.');
-        // }
+        const soredTotalQuantities = localStorage.getItem('totalQuantities')
+        if (soredTotalQuantities) {
+            setTotalQuantities(JSON.parse(soredTotalQuantities));
+        }
     }, []);
-
-
-    // const updateCartItemsAndLocalStorage = (updatedCartItems) => {
-    //     setCartItems(updatedCartItems);
-    //     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
-    // };
-
 
     const onAdd = (product, quantity) => {
         if (!product || !product._id) {
@@ -56,9 +36,15 @@ export const StateContext = ({ children }) => {
         }
 
         const checkProductInCart = cartItems.find((item) => item._id === product._id);
+        const updatedTotalPrice = totalPrice + product.price * quantity;
+        const updatedTotalQuantities = totalQuantities + quantity;
 
-        setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
-        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
+        setTotalPrice(updatedTotalPrice);
+        setTotalQuantities(updatedTotalQuantities);
+
+        localStorage.setItem('totalPrice', JSON.stringify(updatedTotalPrice));
+        localStorage.setItem('totalQuantities', JSON.stringify(updatedTotalQuantities));
+
 
         if (checkProductInCart) {
             const updatedCartItems = cartItems.map((cartProduct) => {
@@ -66,27 +52,21 @@ export const StateContext = ({ children }) => {
                     ...cartProduct,
                     quantity: cartProduct.quantity + quantity
                 };
-                return cartProduct; // Adicionei essa linha para retornar o produto sem modificação
+                return cartProduct;
             });
 
             setCartItems(updatedCartItems);
 
             localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
         } else {
-            // product.quantity = quantity;
-            // setCartItems([...cartItems, { ...product }]);
-            // localStorage.setItem('cartItems', JSON.stringify([...cartItems, { ...product }]));
-
             product.quantity = quantity;
             setCartItems([...cartItems, { ...product }]);
-            // updateCartItemsAndLocalStorage(cartItems);
 
             localStorage.setItem('cartItems', JSON.stringify([...cartItems, { ...product }]));
-
         }
 
-        // updateCartItemsAndLocalStorage(cartItems);
-
+        localStorage.setItem('totalPrice', JSON.stringify(updatedTotalPrice));
+        localStorage.setItem('totalQuantities', JSON.stringify(updatedTotalQuantities));
 
 
         toast.success(`${quantity} ${product.name} adicionado ao carrinho.`);
@@ -104,13 +84,22 @@ export const StateContext = ({ children }) => {
             return;
         }
 
+        const quantityToRemove = foundProduct.quantity; // Obtém a quantidade do produto a ser removida
+
         const newCartItems = cartItems.filter((item) => item._id !== product._id);
 
-        setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price * foundProduct.quantity);
-        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - foundProduct.quantity);
+        const removedProductTotalPrice = foundProduct.price * quantityToRemove; // Preço total do produto removido
+
+        const updatedTotalPrice = totalPrice - removedProductTotalPrice;
+        const updatedTotalQuantities = totalQuantities - quantityToRemove;
+
+        setTotalPrice(updatedTotalPrice);
+        setTotalQuantities(updatedTotalQuantities);
         setCartItems(newCartItems);
 
         localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+        localStorage.setItem('totalPrice', JSON.stringify(updatedTotalPrice));
+        localStorage.setItem('totalQuantities', JSON.stringify(updatedTotalQuantities));
 
         toast.success(`${foundProduct.name} removido do carrinho.`);
     }
@@ -119,36 +108,59 @@ export const StateContext = ({ children }) => {
         foundProduct = cartItems.find((item) => item._id === id)
         index = cartItems.findIndex((product) => product._id === id);
 
+        let updatedTotalPrice = totalPrice;
+        let updatedTotalQuantities = totalQuantities;
+
         if (value === 'inc') {
-            setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price)
-            setTotalQuantities(prevTotalQuantities => prevTotalQuantities + 1)
-            setCartItems(prevCartItems =>
-                prevCartItems.map(item => {
+            updatedTotalPrice = totalPrice + foundProduct.price;
+            updatedTotalQuantities = totalQuantities + 1;
+
+            setTotalPrice(updatedTotalPrice);
+            setTotalQuantities(updatedTotalQuantities);
+
+            setCartItems(prevCartItems => {
+                const updatedCartItems = prevCartItems.map(item => {
                     if (item._id === id) {
                         return { ...item, quantity: foundProduct.quantity + 1 }
                     }
-                    return item
-                })
-            );
+                    return item;
+                });
+
+                localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+
+                return updatedCartItems;
+            });
+
         } else if (value === 'dec') {
             if (foundProduct.quantity > 1) {
-                setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price)
-                setTotalQuantities(prevTotalQuantities => prevTotalQuantities - 1)
-                setCartItems(prevCartItems =>
-                    prevCartItems.map(item => {
+                updatedTotalPrice = totalPrice - foundProduct.price;
+                updatedTotalQuantities = totalQuantities - 1;
+
+                setTotalPrice(updatedTotalPrice);
+                setTotalQuantities(updatedTotalQuantities);
+
+                setCartItems(prevCartItems => {
+                    const updatedCartItems = prevCartItems.map(item => {
                         if (item._id === id) {
                             return { ...item, quantity: foundProduct.quantity - 1 }
                         }
-                        return item
-                    })
-                );
+                        return item;
+                    });
+
+                    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+
+                    return updatedCartItems;
+                });
             }
         }
+        localStorage.setItem('totalPrice', JSON.stringify(updatedTotalPrice));
+        localStorage.setItem('totalQuantities', JSON.stringify(updatedTotalQuantities));
     }
-
     const incQty = () => {
         setQty((prevQty) => prevQty + 1);
     }
+
+
 
     const decQty = () => {
         setQty((prevQty) => {
@@ -157,6 +169,25 @@ export const StateContext = ({ children }) => {
             return prevQty - 1;
         });
     }
+
+    // const incQty = () => {
+    //     const storedQty = localStorage.getItem('qty');
+    //     const parsedQty = storedQty ? parseInt(storedQty) : 0;
+    //     const updatedQty = parsedQty + 1;
+
+    //     setQty(updatedQty);
+    //     localStorage.setItem('qty', updatedQty.toString());
+    // }
+
+    // const decQty = () => {
+    //     const storedQty = localStorage.getItem('qty');
+    //     const parsedQty = storedQty ? parseInt(storedQty) : 0;
+
+    //     const updatedQty = parsedQty > 1 ? parsedQty - 1 : 1;
+
+    //     setQty(updatedQty);
+    //     localStorage.setItem('qty', updatedQty.toString());
+    // }
 
     return (
         <Context.Provider
@@ -184,36 +215,3 @@ export const StateContext = ({ children }) => {
 
 export const useStateContext = () => useContext(Context);
 
-
-// const onAdd = (product, quantity) => {
-//     const checkProductInCart = cartItems.find((item) => item._id === product._id);
-
-//     setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
-//     setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
-
-//     if (checkProductInCart) {
-//         const updatedCartItems = cartItems.map((cartProduct) => {
-//             if (cartProduct._id === product._id) return {
-//                 ...cartProduct,
-//                 quantity: cartProduct.quantity + quantity
-//             }
-//         })
-
-//         setCartItems(updatedCartItems);
-//     } else {
-//         product.quantity = quantity;
-
-//         setCartItems([...cartItems, { ...product }]);
-//     }
-
-//     toast.success(`${qty} ${product.name} adicionado ao carrinho.`);
-// }
-
-// const onRemove = (product) => {
-//     foundProduct = cartItems.find((item) => item._id === product._id);
-//     const newCartItems = cartItems.filter((item) => item._id !== product._id);
-
-//     setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price * foundProduct.quantity);
-//     setTotalQuantities(prevTotalQuantities => prevTotalQuantities - foundProduct.quantity);
-//     setCartItems(newCartItems);
-// }

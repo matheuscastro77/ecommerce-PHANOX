@@ -16,7 +16,12 @@ const Product = ({ product: { image, name, slug, price } }) => {
             alt="product"
           />
           <p className="product-name">{name}</p>
-          <p className="product-price">R$ {price}0</p>
+          <p className="product-price">
+            R${" "}
+            {price.toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+            })}
+          </p>
         </div>
       </Link>
     </div>
