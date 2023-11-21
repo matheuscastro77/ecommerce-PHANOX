@@ -22,7 +22,6 @@ const Home = ({ products, bannerData }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
-      {console.log(bannerData)}
       <div className="products-heading">
         <h2>Produtos Mais Vendidos</h2>
       </div>

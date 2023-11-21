@@ -74,13 +74,13 @@ export const StateContext = ({ children }) => {
 
     const onRemove = (product) => {
         if (!product || !product._id) {
-            console.error("Produto inválido ou sem ID");
+            console.error("Invalid product id");
             return;
         }
 
         const foundProduct = cartItems.find((item) => item._id === product._id);
         if (!foundProduct) {
-            console.error("Produto não encontrado no carrinho");
+            console.error("Product not found");
             return;
         }
 
