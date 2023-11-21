@@ -1052,10 +1052,7 @@ span.text-red {
   }
 
   @media screen and (max-width: 430px) {
-    /* .track {
-      animation: marquee 25s linear infinite;
-      width: 1200%;
-    } */
+
 
     .banner-desc .left p {
       font-size: 40px;
@@ -1074,10 +1071,7 @@ span.text-red {
   }
 
   @media screen and (max-width: 375px) {
-    /* .track {
-      animation: marquee 25s linear infinite;
-      width: 1200%;
-    } */
+
 
     .banner-desc .right {
       position: absolute;
@@ -1087,10 +1081,7 @@ span.text-red {
   }
 
   @media screen and (max-width: 360px) {
-    /* .track {
-      animation: marquee 25s linear infinite;
-      width: 1200%;
-    } */
+
 
     .banner-desc .left p {
       font-size: 35px;
