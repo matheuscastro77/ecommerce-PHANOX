@@ -84,12 +84,11 @@ export const StateContext = ({ children }) => {
             return;
         }
 
-        const quantityToRemove = foundProduct.quantity; // Obtém a quantidade do produto a ser removida
+        const quantityToRemove = foundProduct.quantity;
 
         const newCartItems = cartItems.filter((item) => item._id !== product._id);
 
-        const removedProductTotalPrice = foundProduct.price * quantityToRemove; // Preço total do produto removido
-
+        const removedProductTotalPrice = foundProduct.price * quantityToRemove;
         const updatedTotalPrice = totalPrice - removedProductTotalPrice;
         const updatedTotalQuantities = totalQuantities - quantityToRemove;
 

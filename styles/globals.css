@@ -6,7 +6,6 @@ body,
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   box-sizing: border-box;
-
 }
 
 ::-webkit-scrollbar {
@@ -403,7 +402,7 @@ span.text-red {
   margin-top: 15px;
   overflow: scroll;
   max-height: 75vh;
-  padding: 10px 10px;
+  padding: 30px 30px;
 }
 
 .product {
@@ -462,7 +461,7 @@ span.text-red {
   right: 5px;
   width: 100%;
   padding: 30px 65px;
-
+  background-color: white;
 }
 
 .btn-container {
@@ -930,6 +929,7 @@ span.text-red {
     margin-top: 35px;
   }
 
+
   .product-container {
     margin-top: 10px;
   }
@@ -1051,6 +1051,7 @@ span.text-red {
     margin-top: 50%;
   }
 
+
   @media screen and (max-width: 430px) {
 
 
@@ -1067,6 +1068,11 @@ span.text-red {
       position: absolute;
       left: 15px;
       margin-top: 67%;
+    }
+
+    .product-container {
+      margin-top: 10px;
+      padding: 30px 30px 100px 30px;
     }
   }
 
