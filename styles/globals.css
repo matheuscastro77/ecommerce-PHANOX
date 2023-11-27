@@ -423,7 +423,7 @@ span.text-red {
   justify-content: space-between;
   width: 350px;
   color: #324d67;
-  max-width: 100%;
+  max-width: 95%;
 }
 
 .item-desc .bottom {
@@ -458,9 +458,7 @@ span.text-red {
 .cart-bottom {
   position: absolute;
   bottom: 12px;
-  right: 5px;
-  width: 100%;
-  padding: 30px 65px;
+  padding: 30px 80px;
   background-color: white;
 }
 
@@ -743,6 +741,12 @@ span.text-red {
   margin-top: 10px;
 }
 
+@media screen and (max-width: 1280px) {
+  .cart-bottom {
+    padding: 30px 86px;
+  }
+}
+
 @media screen and (max-width: 1200px) {
   .track {
     animation: marquee 25s linear infinite;
@@ -759,10 +763,6 @@ span.text-red {
 }
 
 @media screen and (max-width: 1024px) {
-  /* .track {
-    animation: marquee 25s linear infinite;
-    width: 1200%;
-  } */
 
   .banner-desc .left {
     font-size: 40px;
@@ -1019,11 +1019,11 @@ span.text-red {
   }
 
   .cart-bottom {
-    width: 100vw;
-    height: 17vh;
+    height: 16vh;
     padding: 20px;
     bottom: 0;
     position: fixed;
+    padding: 10px 65px;
   }
 
   .buttons {
@@ -1084,6 +1084,16 @@ span.text-red {
       left: 15px;
       margin-top: 75%;
     }
+
+    .cart-bottom {
+      padding: 0 55px;
+    }
+
+    .cart-container {
+      width: 400px;
+      padding: 4px;
+    }
+
   }
 
   @media screen and (max-width: 360px) {
@@ -1102,6 +1112,11 @@ span.text-red {
       position: absolute;
       left: 15px;
       margin-top: 80%;
+    }
+
+    .cart-container {
+      width: 380px;
+      padding: 4px;
     }
   }
 }
