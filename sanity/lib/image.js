@@ -10,5 +10,3 @@ const imageBuilder = createImageUrlBuilder({
 export const urlForImage = (source) => {
   return imageBuilder?.image(source).auto('format').fit('max')
 }
-
-// export const urlFor = (source) => builder.image(source);
